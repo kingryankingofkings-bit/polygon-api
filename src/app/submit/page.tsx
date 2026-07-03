@@ -1,4 +1,4 @@
-// @polsia:user-owned — manuscript submission page (replaces prototype).
+// @app:user-owned — manuscript submission page (replaces prototype).
 import type { Metadata } from 'next';
 import { SubmissionForm } from '@/components/custom/submission-form';
 

@@ -1,4 +1,4 @@
-// @polsia:framework-owned — DO NOT EDIT. Code installed by polsia/template-next@0.3.0.
+// @app:framework-owned — DO NOT EDIT. Code installed by app/template-next@0.3.0.
 //
 // /robots.txt — standard Next 16 metadata route. Indexing is OPT-IN: only a
 // deploy that sets SEO_INDEXABLE=true (the production deploy) is crawlable.

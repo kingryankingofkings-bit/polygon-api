@@ -1,4 +1,4 @@
-// @polsia:shared — edit only through declared slots. Code installed by polsia/template-next@0.3.1.
+// @app:shared — edit only through declared slots. Code installed by app/template-next@0.3.1.
 //
 // Why this file is shared-by-slot:
 //   - Security headers MUST ship on day 1.
@@ -21,9 +21,9 @@ import './src/lib/env';
 // the agent edits there, not here. Framework keys below always win.
 import { userNextConfig, userRemotePatterns } from './next.user-config';
 
-// Polsia-platform image hosts (e.g. the R2 asset bucket), injected per-deploy as
-// POLSIA_IMAGE_REMOTE_HOSTS — comma-separated hostnames, Next wildcard syntax OK.
-const polsiaRemotePatterns = (process.env.POLSIA_IMAGE_REMOTE_HOSTS ?? '')
+// App-platform image hosts (e.g. the R2 asset bucket), injected per-deploy as
+// APP_IMAGE_REMOTE_HOSTS — comma-separated hostnames, Next wildcard syntax OK.
+const appRemotePatterns = (process.env.APP_IMAGE_REMOTE_HOSTS ?? '')
   .split(',')
   .map((hostname) => hostname.trim())
   .filter(Boolean)
@@ -37,25 +37,25 @@ const nextConfig: NextConfig = {
   // D17: Cache Components OFF. Do not flip this on without platform review.
   // experimental: { cacheComponents: false } — intentionally omitted; default is off.
 
-  // @polsia:slot package_level_options start
+  // @app:slot package_level_options start
   // D20: package-level options that modules contribute at install time
   // (e.g., `experimental.optimizePackageImports`, `transpilePackages`).
   // The installer maintains shape per the module's `package_contributions`
   // block. Do NOT hand-edit outside this slot.
   // The template ships with an empty slot.
-  // @polsia:slot package_level_options end
+  // @app:slot package_level_options end
 
   // Image security.
   images: {
-    // Polsia-platform hosts (deploy-injected) + user hosts from next.user-config.ts;
+    // App-platform hosts (deploy-injected) + user hosts from next.user-config.ts;
     // modules append in the slot below.
     remotePatterns: [
-      ...polsiaRemotePatterns,
+      ...appRemotePatterns,
       ...userRemotePatterns,
-      // @polsia:slot images_remote_patterns start
+      // @app:slot images_remote_patterns start
       // Modules append remote image patterns here at install time. The
       // template ships with an empty allow-list.
-      // @polsia:slot images_remote_patterns end
+      // @app:slot images_remote_patterns end
     ],
     localPatterns: [{ pathname: '/assets/**', search: '' }],
     dangerouslyAllowLocalIP: false,

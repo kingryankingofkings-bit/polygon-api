@@ -12,7 +12,7 @@ interface OwnershipEntry {
 }
 
 const ownership = JSON.parse(
-  readFileSync(new URL('../../.polsia/ownership.json', import.meta.url), 'utf-8'),
+  readFileSync(new URL('../../.app/ownership.json', import.meta.url), 'utf-8'),
 ) as { paths: OwnershipEntry[] };
 
 const find = (path: string) => ownership.paths.find((e) => e.path === path);
@@ -27,7 +27,7 @@ const bannerablePaths = (tier: string) =>
     .filter((e) => e.tier === tier && isConcrete(e.path) && BANNERABLE.test(e.path))
     .map((e) => e.path);
 
-describe('.polsia/ownership.json', () => {
+describe('.app/ownership.json', () => {
   it.each(['src/app/api/**', 'prisma/schema/*.prisma', 'src/hooks/**'])(
     'has no broad framework glob %s (agent-authored files must stay app-owned)',
     (path) => {
@@ -94,13 +94,13 @@ describe('.polsia/ownership.json', () => {
 // Keep reader-facing source banners aligned with the ownership map.
 describe('ownership banners agree with the tier map', () => {
   it.each(bannerablePaths('framework_owned'))(
-    'framework_owned %s carries the @polsia:framework-owned banner',
+    'framework_owned %s carries the @app:framework-owned banner',
     (path) => {
-      expect(readSource(path)).toContain('@polsia:framework-owned');
+      expect(readSource(path)).toContain('@app:framework-owned');
     },
   );
 
-  it.each(bannerablePaths('shared'))('shared %s carries the @polsia:shared banner', (path) => {
-    expect(readSource(path)).toContain('@polsia:shared');
+  it.each(bannerablePaths('shared'))('shared %s carries the @app:shared banner', (path) => {
+    expect(readSource(path)).toContain('@app:shared');
   });
 });

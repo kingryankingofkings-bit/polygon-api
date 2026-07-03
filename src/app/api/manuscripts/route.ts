@@ -1,4 +1,4 @@
-// @polsia:user-owned — Manuscript CRUD endpoints. All queries scoped by authorId.
+// @app:user-owned — Manuscript CRUD endpoints. All queries scoped by authorId.
 import 'server-only';
 import { NextResponse } from 'next/server';
 import { ManuscriptCreateSchema, ManuscriptPublicSchema } from '@/lib/contracts/manuscript';

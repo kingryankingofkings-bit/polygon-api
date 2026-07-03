@@ -1,36 +1,36 @@
-# AGENTS.md — Polsia Next.js Template
+# AGENTS.md — App Next.js Template
 
 ## What this template is
 
-You are reading the Polsia Next.js template (template id `polsia-next-v2`, package `polsia/template-next` v0.3.0, GitHub repo `Polsia-Inc/template-next`). It is a scaffold with the shadcn baseline built in: Next.js 16 App Router, React 19, Tailwind 4 CSS-first, a broad shadcn primitive set (see `.polsia/ownership.json` for the full list) + the `cn()` helper + `components.json` + a design-token theme + a next-themes ThemeProvider, Prisma 6 as the framework-native DB client, Biome, Vitest. Nothing else.
+You are reading the App Next.js template (template id `app-next-v2`, package `app/template-next` v0.3.0, GitHub repo `App-Inc/template-next`). It is a scaffold with the shadcn baseline built in: Next.js 16 App Router, React 19, Tailwind 4 CSS-first, a broad shadcn primitive set (see `.app/ownership.json` for the full list) + the `cn()` helper + `components.json` + a design-token theme + a next-themes ThemeProvider, Prisma 6 as the framework-native DB client, Biome, Vitest. Nothing else.
 
-Customer apps are not built by hand. You — the Polsia engineering agent — mutate this template through bounded edit zones declared in `.polsia/ownership.json`, then install modules from `Polsia-Inc/modules` to add reusable capabilities such as auth, billing, email, dashboards, and analytics. The shadcn baseline ships in the template — compose the base primitives in `src/components/ui/`, restyle through the theme tokens (the `brand_tokens` slot) + cva variants, and pull more primitives with `npx shadcn add`. The repo's directory shape and ownership banners are the contract that lets you edit without breaking the framework.
+Customer apps are not built by hand. You — the App engineering agent — mutate this template through bounded edit zones declared in `.app/ownership.json`, then install modules from `App-Inc/modules` to add reusable capabilities such as auth, billing, email, dashboards, and analytics. The shadcn baseline ships in the template — compose the base primitives in `src/components/ui/`, restyle through the theme tokens (the `brand_tokens` slot) + cva variants, and pull more primitives with `npx shadcn add`. The repo's directory shape and ownership banners are the contract that lets you edit without breaking the framework.
 
 The human `README.md` describes the template for developers. This file is for you. Read it before doing anything else.
 
-## You are operating on a Polsia v2 customer app
+## You are operating on a App v2 customer app
 
-If you are reading this file, the dispatcher routed this task to engineering-agent-v2 because the `engineering-agent-v2` PostHog flag is enabled for the customer's org and the repo's `.polsia/installed.json` template id is `polsia-next-v2`. Before any action, read three state files:
+If you are reading this file, the dispatcher routed this task to engineering-agent-v2 because the `engineering-agent-v2` PostHog flag is enabled for the customer's org and the repo's `.app/installed.json` template id is `app-next-v2`. Before any action, read three state files:
 
-- `.polsia/installed.json` — machine-owned trust anchor: installed modules, versions, install-hashes, ejected files, slot assignments, day-1 validator floor. Never hand-edit.
-- `.polsia/ownership.json` — path-to-tier map; the single authority. The eng-v2 ownership gate reads this file and enforces tiers by diffing the agent's changes against it. Comment-capable source files (`.ts/.tsx/.mjs/.css/.prisma`) also carry a matching `@polsia:` banner as signage for the reader — no gate reads the banner, so it is informational only and `ownership.json` is the sole authority. JSON/`.npmrc`/`.toml` files can't host a banner and are governed by their `ownership.json` entry the same way.
-- `.polsia/overrides.json` — hand-editable per-module config and auto-upgrade policy. Read but don't write unless the task is an explicit override change.
+- `.app/installed.json` — machine-owned trust anchor: installed modules, versions, install-hashes, ejected files, slot assignments, day-1 validator floor. Never hand-edit.
+- `.app/ownership.json` — path-to-tier map; the single authority. The eng-v2 ownership gate reads this file and enforces tiers by diffing the agent's changes against it. Comment-capable source files (`.ts/.tsx/.mjs/.css/.prisma`) also carry a matching `@app:` banner as signage for the reader — no gate reads the banner, so it is informational only and `ownership.json` is the sole authority. JSON/`.npmrc`/`.toml` files can't host a banner and are governed by their `ownership.json` entry the same way.
+- `.app/overrides.json` — hand-editable per-module config and auto-upgrade policy. Read but don't write unless the task is an explicit override change.
 
 Treat these as authoritative. If you think a file is editable but `ownership.json` says framework_owned, `ownership.json` wins.
 
-## Ownership tiers — read `.polsia/ownership.json`
+## Ownership tiers — read `.app/ownership.json`
 
 Every path in this repo belongs to one of three tiers.
 
-`framework_owned` — the framework or owning module rewrites these on upgrade. You do not edit them. Comment-capable source files carry a `// @polsia:framework-owned` banner (e.g. `src/lib/db.ts`, `src/lib/utils.ts`, `src/components/theme-provider.tsx`, `prisma.config.ts`); JSON/config files that can't host a banner (`components.json`, `tsconfig.json`, `biome.json`, `.npmrc`) are framework_owned purely by their `ownership.json` entry. Either way, `ownership.json` is the authority.
+`framework_owned` — the framework or owning module rewrites these on upgrade. You do not edit them. Comment-capable source files carry a `// @app:framework-owned` banner (e.g. `src/lib/db.ts`, `src/lib/utils.ts`, `src/components/theme-provider.tsx`, `prisma.config.ts`); JSON/config files that can't host a banner (`components.json`, `tsconfig.json`, `biome.json`, `.npmrc`) are framework_owned purely by their `ownership.json` entry. Either way, `ownership.json` is the authority.
 
-`user_owned` — the framework creates these with sane defaults at install, then never touches them. You may edit them freely. Examples: `public/**`, `src/app/not-found.tsx`, `README.md`, `.env.local`, `.polsia/overrides.json`.
+`user_owned` — the framework creates these with sane defaults at install, then never touches them. You may edit them freely. Examples: `public/**`, `src/app/not-found.tsx`, `README.md`, `.env.local`, `.app/overrides.json`.
 
-`shared` — modified by multiple modules through declared slot markers. You insert content between named `@polsia:slot <name>` markers; the rest of the file is off-limits. Examples: `src/app/globals.css` (`brand_tokens` slot, palette-pool strategy), `src/app/layout.tsx` (`providers` slot, composed), `proxy.ts` (`middleware_chain` slot), `next.config.ts` (`images_remote_patterns`, `package_level_options`).
+`shared` — modified by multiple modules through declared slot markers. You insert content between named `@app:slot <name>` markers; the rest of the file is off-limits. Examples: `src/app/globals.css` (`brand_tokens` slot, palette-pool strategy), `src/app/layout.tsx` (`providers` slot, composed), `proxy.ts` (`middleware_chain` slot), `next.config.ts` (`images_remote_patterns`, `package_level_options`).
 
 ## Tier invariants — NON-NEGOTIABLE
 
-These are declared verbatim in `.polsia/ownership.json#tier_invariants`. The validator enforces them; treat them as physics, not guidance.
+These are declared verbatim in `.app/ownership.json#tier_invariants`. The validator enforces them; treat them as physics, not guidance.
 
 `auth_subtree_user_owned` — `src/app/(auth)/**` is user_owned (like `(dashboard)`): build + restyle auth-area pages freely. Don't hand-roll the auth security surface — install the auth module, which owns `src/lib/auth.ts`, `src/app/api/auth/**`, the prisma auth schema and `require-auth`/`require-admin` as framework_owned.
 
@@ -44,7 +44,7 @@ These are declared verbatim in `.polsia/ownership.json#tier_invariants`. The val
 
 ## Your first task on a fresh customer repo
 
-When you land in a freshly-cloned customer repo, `.polsia/installed.json#modules` is `[]` on a fresh clone — the UI baseline is in the template, not a module. `/` still serves the `(setup)` "not configured yet" placeholder until the first real app surface exists. Your first move is usually to read the customer brief and decide whether an existing module covers the requested capability.
+When you land in a freshly-cloned customer repo, `.app/installed.json#modules` is `[]` on a fresh clone — the UI baseline is in the template, not a module. `/` still serves the `(setup)` "not configured yet" placeholder until the first real app surface exists. Your first move is usually to read the customer brief and decide whether an existing module covers the requested capability.
 
 Read the customer brief. If it asks for app-specific UI, public pages, or product workflow that no module covers, build it yourself in user-owned zones: the base shadcn set is present in `src/components/ui/`; compose it, restyle via theme tokens + cva variants, and pull more with `npx shadcn add`. Build reusable styled components in `src/components/custom/` (see `section-card.tsx`). If it implies dangerous reusable capability, propose a new module instead.
 
@@ -54,7 +54,7 @@ it.
 
 ## How to install a module
 
-Use the `polsia_modules_install` MCP tool or the shared `polsia-modules install` CLI. Do not clone the modules repo and copy files by hand. The module manifest is the source of truth, and the installer is responsible for file writes, `.polsia/installed.json` updates, ownership updates, and validators. (Removing the `(setup)` home is NOT the installer's job — when a module takes over `/`, you delete the `(setup)/` tree yourself; see `setup_route_replaced_by_app_surface`.)
+Use the `app_modules_install` MCP tool or the shared `app-modules install` CLI. Do not clone the modules repo and copy files by hand. The module manifest is the source of truth, and the installer is responsible for file writes, `.app/installed.json` updates, ownership updates, and validators. (Removing the `(setup)` home is NOT the installer's job — when a module takes over `/`, you delete the `(setup)/` tree yourself; see `setup_route_replaced_by_app_surface`.)
 
 The shadcn baseline ships IN the template, not as a module:
 
@@ -62,7 +62,7 @@ The shadcn baseline ships IN the template, not as a module:
 - `src/lib/utils.ts` (`cn()`) — framework_owned
 - `src/components/theme-provider.tsx` (next-themes wrapper) — framework_owned
 - a real design-token theme in `src/app/globals.css` (the `brand_tokens` slot)
-- `src/components/ui/**` ships a POPULATED primitive set (layout, forms, overlays, navigation, feedback — see `.polsia/ownership.json` for the full list) and is **agent-owned** — restyle/extend it; pull more via `npx shadcn add`
+- `src/components/ui/**` ships a POPULATED primitive set (layout, forms, overlays, navigation, feedback — see `.app/ownership.json` for the full list) and is **agent-owned** — restyle/extend it; pull more via `npx shadcn add`
 
 If the MCP/CLI cannot complete a module install, escalate. Do not invent install steps.
 
@@ -76,7 +76,7 @@ Custom code is for app-specific work that no module covers. Create new files onl
 - React hooks: `src/hooks/use-<feature>.ts` (agent-authored hooks are app-owned).
 - Next.js config tweaks (remote image hosts, package-level options): `next.user-config.ts` — the user-owned companion that `next.config.ts` imports + merges; never edit `next.config.ts` itself.
 
-Most of these directories do not exist in the scaffold; you create them. They are user-owned by virtue of being outside every framework_owned and shared pattern in `ownership.json`. Add a `// @polsia:user-owned` banner at the top of new files so future runs of the validator know.
+Most of these directories do not exist in the scaffold; you create them. They are user-owned by virtue of being outside every framework_owned and shared pattern in `ownership.json`. Add a `// @app:user-owned` banner at the top of new files so future runs of the validator know.
 
 ### Navigation: make every feature reachable by the right intent
 
@@ -106,7 +106,7 @@ Never touch `framework_owned` files. Never write outside slot markers in `shared
 ### UI: a base set + a theme are already here — compose and restyle through the theme
 
 The shadcn primitive set ships POPULATED in `src/components/ui/` (layout, forms,
-overlays incl. poppers, navigation, feedback — see `.polsia/ownership.json` for
+overlays incl. poppers, navigation, feedback — see `.app/ownership.json` for
 the full list) — it is YOURS to restyle and extend. Every primitive works in
 production: `proxy.ts` keeps `script-src` strict (nonce + `strict-dynamic`) but
 allows inline styles (`style-src 'unsafe-inline'`), so Radix runtime positioning
@@ -116,7 +116,7 @@ to `style-src`. Change look-and-feel via the theme tokens (`bg-background`,
 `text-muted-foreground`, …) in the `brand_tokens` slot + cva variants on the
 primitives — never ad-hoc per-element colors. Need a primitive not in the base
 set? Run `npx shadcn@latest add <name> --yes` (the ONE allowed CLI; capability
-modules — auth, billing, etc. — still come through the `polsia_modules` MCP,
+modules — auth, billing, etc. — still come through the `app_modules` MCP,
 never a CLI) — it lands agent-owned in `src/components/ui/`. Build STYLED,
 REUSABLE components in `src/components/custom/` by composing the primitives (see
 `section-card.tsx`).
@@ -154,15 +154,15 @@ goes in `src/components/custom/global-mounts.tsx` (mounted once at the app root)
 When inserting into a shared file, use the exact slot marker grammar already in the file. Slot IDs are snake_case per D22:
 
 ```
-/* === BEGIN polsia-slot:brand_tokens === */
+/* === BEGIN app-slot:brand_tokens === */
 ...your content here...
-/* === END polsia-slot:brand_tokens === */
+/* === END app-slot:brand_tokens === */
 ```
 
 ```
-{/* @polsia:slot providers start */}
+{/* @app:slot providers start */}
 ...your content here...
-{/* @polsia:slot providers end */}
+{/* @app:slot providers end */}
 ```
 
 Content outside the markers is framework territory. The validator rejects edits that cross the boundary or omit the markers.
@@ -181,10 +181,10 @@ npm run test         # vitest run
 **Env at dev/build time.** `next.config.ts` eagerly loads `src/lib/env.ts`, whose
 schema REQUIRES `DATABASE_URL` and `NEXT_PUBLIC_APP_URL`. Validation runs at
 config load, so `npm run dev` and `npm run build` **fail fast** with `Invalid
-environment variables` on a clone Polsia hasn't injected into. To run locally,
+environment variables` on a clone App hasn't injected into. To run locally,
 either set a real `DATABASE_URL` in `.env.local` **or** prefix the command with
 `SKIP_ENV_VALIDATION=1` (e.g. `SKIP_ENV_VALIDATION=1 npm run build`).
-`typecheck`/`lint`/`test` need no env. In production Polsia injects the vars — do
+`typecheck`/`lint`/`test` need no env. In production App injects the vars — do
 NOT weaken the schema to make a local build pass.
 
 The deploy pipeline's healthcheck hits `/health`. Do not break that route.
@@ -193,19 +193,19 @@ The deploy pipeline's healthcheck hits `/health`. Do not break that route.
 
 Because Server Actions cannot be disabled by config and the deploy build gate rejects the directive, do not add an `experimental.serverActions` block to `next.config.ts` to try. An EXTERNAL `/api` origin (token-ready mode) is wired only by setting the `NEXT_PUBLIC_API_URL` env var (it feeds `@/lib/api-client`'s base and `proxy.ts`'s `connect-src`); never hand-edit `proxy.ts` or `next.config.ts` for it. Same-origin `/api` needs no config — `connect-src 'self'` covers it and the `proxy.ts` matcher already excludes `/api`.
 
-## Deploy manifest — `polsia.toml`
+## Deploy manifest — `app.toml`
 
-`polsia.toml` (repo root) is the deploy manifest Polsia's pipeline reads server-side at the deployed commit. It declares `build`, `start`, `healthcheck_path`, `port_env_var`, the `[env]` sources resolved at setup (e.g. `DATABASE_URL = { source = "rdbms" }`), and any `[[crons]]`. Parsing is fail-open per field — a missing/invalid field falls back to the platform default — so it never blocks a deploy, but a wrong value silently degrades it. The build/start/health/port values mirror the platform's verified manifest for this template: **do not change them.** It is `user_owned` for ONE reason — so you can declare scheduled work.
+`app.toml` (repo root) is the deploy manifest App's pipeline reads server-side at the deployed commit. It declares `build`, `start`, `healthcheck_path`, `port_env_var`, the `[env]` sources resolved at setup (e.g. `DATABASE_URL = { source = "rdbms" }`), and any `[[crons]]`. Parsing is fail-open per field — a missing/invalid field falls back to the platform default — so it never blocks a deploy, but a wrong value silently degrades it. The build/start/health/port values mirror the platform's verified manifest for this template: **do not change them.** It is `user_owned` for ONE reason — so you can declare scheduled work.
 
-**Recurring/scheduled work goes in `polsia.toml` `[[crons]]`, never an in-process scheduler.** Append one block per job: `name` (stable kebab slug, `/^[a-z][a-z0-9-]{0,62}$/`, unique), `schedule` (5-field POSIX cron, e.g. `"0 9 * * *"`), `command` (runs in a fresh checkout, e.g. `"node jobs/digest.js"`), and optional `dependencies` (extra npm packages for that job only). Do NOT use `setInterval`/`setTimeout`/`node-cron`/`node-schedule`/`agenda`/`bull`/long-lived workers for product behavior — they don't survive Blaxel's scale-to-zero and aren't the scheduling source of truth. If a job needs a manual trigger, expose an `/api/...` route handler that runs the same logic; the future schedule still belongs in `[[crons]]`.
+**Recurring/scheduled work goes in `app.toml` `[[crons]]`, never an in-process scheduler.** Append one block per job: `name` (stable kebab slug, `/^[a-z][a-z0-9-]{0,62}$/`, unique), `schedule` (5-field POSIX cron, e.g. `"0 9 * * *"`), `command` (runs in a fresh checkout, e.g. `"node jobs/digest.js"`), and optional `dependencies` (extra npm packages for that job only). Do NOT use `setInterval`/`setTimeout`/`node-cron`/`node-schedule`/`agenda`/`bull`/long-lived workers for product behavior — they don't survive Blaxel's scale-to-zero and aren't the scheduling source of truth. If a job needs a manual trigger, expose an `/api/...` route handler that runs the same logic; the future schedule still belongs in `[[crons]]`.
 
 ## Anti-patterns the validator rejects
 
 - Editing `next.config.ts` directly. It is framework-owned (security headers, CSP, Cache-Components policy). Add remote image hosts (`userRemotePatterns`) and package-level options (`userNextConfig`) in the user-owned `next.user-config.ts`, which `next.config.ts` imports + merges. (Module image/package contributions still splice the `images_remote_patterns` / `package_level_options` slots at install.)
 - Hand-rolling the auth SECURITY surface — `src/lib/auth.ts`, `src/app/api/auth/**`, the prisma auth schema, `require-auth`/`require-admin` (framework_owned, installed by the auth module). Install the covering auth module instead. The `(auth)`/`(dashboard)` route-group PAGES are user_owned — build + restyle them freely.
 - Modifying `prisma/schema/_base.prisma` (datasource + generator; framework_owned). Data modules each drop a whole governed `prisma/schema/<module>.prisma` file (file-drop, no slot splicing; protected by the module's manifest globs). Agent-authored `prisma/schema/<feature>.prisma` files are app-owned — add your own models there. Do NOT redeclare datasource or generator in any other schema file.
-- Hand-editing `.polsia/installed.json` or `.polsia/ownership.json`. Both are machine-emitted.
-- Deleting any `.polsia/*` file.
+- Hand-editing `.app/installed.json` or `.app/ownership.json`. Both are machine-emitted.
+- Deleting any `.app/*` file.
 - Writing outside slot markers in any shared file.
 - Setting `cacheComponents: true` in `next.config.ts` (D17 — off by default, Lovable-class failure surface on auth).
 - Adding `middleware.ts` (D18 — Next 16 uses `proxy.ts`; the validator rejects the old name. Note: local `npm run lint` only scans `src`/`tests`, so it will NOT catch a root `middleware.ts` — rely on the validator, not lint).

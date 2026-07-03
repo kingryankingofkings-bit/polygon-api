@@ -1,4 +1,4 @@
-// @polsia:user-owned — manuscript scoring form island. 'use client' component
+// @app:user-owned — manuscript scoring form island. 'use client' component
 // that handles manuscript input, API submission, and results display.
 'use client';
 

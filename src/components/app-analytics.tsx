@@ -1,20 +1,20 @@
-// @polsia:framework-owned — DO NOT EDIT. Code installed by polsia/template-next@0.3.2.
+// @app:framework-owned — DO NOT EDIT. Code installed by app/template-next@0.3.2.
 //
 // Visitor beacon: a pixel per page load from the deploy-injected slug + base.
 'use client';
 
 import { useEffect } from 'react';
 
-export function PolsiaAnalytics({ slug, base }: { slug: string; base?: string }) {
+export function AppAnalytics({ slug, base }: { slug: string; base?: string }) {
   useEffect(() => {
     if (!slug) return;
     try {
-      let vid = localStorage.getItem('polsia_vid');
+      let vid = localStorage.getItem('app_vid');
       if (!vid) {
         vid = crypto.randomUUID();
-        localStorage.setItem('polsia_vid', vid);
+        localStorage.setItem('app_vid', vid);
       }
-      const host = (base ?? 'https://polsia.com').replace(/\/+$/, '');
+      const host = (base ?? 'https://app.com').replace(/\/+$/, '');
       new Image().src = `${host}/api/beacon/pixel?s=${encodeURIComponent(slug)}&v=${encodeURIComponent(vid)}`;
     } catch {
       // best-effort: a beacon failure must never surface to the visitor

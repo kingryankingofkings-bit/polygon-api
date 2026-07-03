@@ -1,4 +1,4 @@
-// @polsia:user-owned
+// @app:user-owned
 //
 // SECURE owner-scoped API route. COPY THIS SHAPE for any per-user resource:
 // `requireAuth()` + every query scoped by the caller's id.

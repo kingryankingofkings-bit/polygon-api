@@ -1,8 +1,8 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/stripe-billing@0.1.0. Drift = commit rejected.
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/stripe-billing@0.1.0. Drift = commit rejected.
 //
 // GET /api/stripe-billing/verify?session_id=...
 // Public success-page verification route. It verifies the Stripe checkout
-// session against Polsia's company-payment records using server-only proxy env.
+// session against App's company-payment records using server-only proxy env.
 
 import 'server-only';
 import { NextResponse } from 'next/server';

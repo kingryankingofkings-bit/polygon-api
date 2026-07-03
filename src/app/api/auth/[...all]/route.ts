@@ -1,4 +1,4 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/better-auth@0.2.0. Drift = commit rejected.
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/better-auth@0.2.0. Drift = commit rejected.
 //
 // better-auth catch-all route handler. Mounts EVERY better-auth endpoint
 // (sign-in, sign-up, sign-out, session, callbacks, ...) under /api/auth/*.

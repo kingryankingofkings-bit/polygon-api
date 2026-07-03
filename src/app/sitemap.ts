@@ -1,4 +1,4 @@
-// @polsia:framework-owned — DO NOT EDIT. Code installed by polsia/template-next@0.3.0.
+// @app:framework-owned — DO NOT EDIT. Code installed by app/template-next@0.3.0.
 //
 // /sitemap.xml — merges nav pages (src/lib/nav.ts) with programmatic routes
 // (src/lib/seo-routes.ts). To add URLs, edit those companions, not this file.

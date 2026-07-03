@@ -1,6 +1,6 @@
-# polsia.toml — Polsia deploy manifest for this Next.js + Prisma app.
+# app.toml — App deploy manifest for this Next.js + Prisma app.
 #
-# Read SERVER-SIDE by Polsia's deploy pipeline at the deployed commit to drive
+# Read SERVER-SIDE by App's deploy pipeline at the deployed commit to drive
 # how this app is built, started, health-checked and given its listen port.
 # Parsing is fail-open per field: a missing/invalid field falls back to the
 # platform default for that field, so a mistake here never blocks a deploy.

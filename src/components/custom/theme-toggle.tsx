@@ -1,4 +1,4 @@
-// @polsia:user-owned — light/dark theme toggle. Reusable; mounted in SiteNav.
+// @app:user-owned — light/dark theme toggle. Reusable; mounted in SiteNav.
 
 'use client';
 

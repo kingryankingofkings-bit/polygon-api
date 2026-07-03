@@ -1,4 +1,4 @@
-// @polsia:user-owned
+// @app:user-owned
 'use client';
 
 import { ArrowRight } from 'lucide-react';

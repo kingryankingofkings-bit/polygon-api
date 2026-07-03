@@ -1,4 +1,4 @@
-// @polsia:framework-owned — DO NOT EDIT. Builds the Content-Security-Policy
+// @app:framework-owned — DO NOT EDIT. Builds the Content-Security-Policy
 // applied per-request in proxy.ts.
 //
 // SECURITY POSTURE (platform decision — not the agent's to change):

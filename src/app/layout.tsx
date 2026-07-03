@@ -1,6 +1,6 @@
-// @polsia:framework-owned — the framework owns this shell: it is re-stamped
+// @app:framework-owned — the framework owns this shell: it is re-stamped
 // (overwritten) on template upgrade and the ownership gate rejects edits to it.
-// Code installed by polsia/template-next@0.3.5.
+// Code installed by app/template-next@0.3.5.
 //
 // Root layout: html, body, font, CSP nonce wiring, provider composition. App-wide
 // React providers go in the user-owned src/components/providers.tsx (AppProviders);
@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { GlobalMounts } from '@/components/custom/global-mounts';
 import { SiteFooter, SiteNav } from '@/components/custom/site-nav';
-import { PolsiaAnalytics } from '@/components/polsia-analytics';
+import { AppAnalytics } from '@/components/app-analytics';
 import { AppProviders } from '@/components/providers';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -52,18 +52,18 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Next.js 16: headers() is async. Reading it opts the route into dynamic
   // rendering (per-request) — required for the per-request CSP nonce.
-  // POLSIA_STATIC_CHECK is a BUILD-ONLY escape hatch for Polsia's in-sandbox
+  // APP_STATIC_CHECK is a BUILD-ONLY escape hatch for App's in-sandbox
   // render gate: when set, skip the nonce read so routes stay statically
   // prerenderable and `next build` render-checks every route (catching SSR
   // throws a normal dynamic build never surfaces). It is NEVER set on the real
   // deploy build, so production keeps the per-request nonce + dynamic rendering
   // unchanged (SEO/CSP identical).
-  const nonce = process.env.POLSIA_STATIC_CHECK
+  const nonce = process.env.APP_STATIC_CHECK
     ? undefined
     : ((await headers()).get('x-nonce') ?? undefined);
   // Visitor beacon: deploy-injected app slug + per-env platform base.
-  const analyticsSlug = process.env.POLSIA_ANALYTICS_SLUG;
-  const analyticsBase = process.env.POLSIA_API_BASE_URL;
+  const analyticsSlug = process.env.APP_ANALYTICS_SLUG;
+  const analyticsBase = process.env.APP_API_BASE_URL;
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -85,7 +85,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {/* Root/global mounts (Cmd+K palette, global listeners, overlays) — edit global-mounts.tsx, not this file. */}
             <GlobalMounts />
           </AppProviders>
-          {analyticsSlug ? <PolsiaAnalytics slug={analyticsSlug} base={analyticsBase} /> : null}
+          {analyticsSlug ? <AppAnalytics slug={analyticsSlug} base={analyticsBase} /> : null}
         </ThemeProvider>
       </body>
     </html>

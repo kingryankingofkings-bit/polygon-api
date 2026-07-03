@@ -1,2 +1,2 @@
-# @polsia:framework-owned — vendored module installs land here at
-# `polsia module install <name>` time. Empty in the scaffold.
+# @app:framework-owned — vendored module installs land here at
+# `app module install <name>` time. Empty in the scaffold.

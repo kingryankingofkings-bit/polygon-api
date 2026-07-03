@@ -1,4 +1,4 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/better-auth@0.5.0. Drift = commit rejected.
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/better-auth@0.5.0. Drift = commit rejected.
 // Protected core (db/secret/baseURL, admin plugin) + owner-admin grant, composed with the app's
 // own databaseHooks. Configure auth in @/lib/auth-config (user-owned).
 
@@ -30,7 +30,7 @@ export const auth = betterAuth({
           const r = await appHooks?.user?.create?.before?.(user, ctx);
           if (r === false) return false;
           const base = r && typeof r === 'object' && 'data' in r ? r.data : user;
-          const owner = env.POLSIA_OWNER_EMAIL?.toLowerCase();
+          const owner = env.APP_OWNER_EMAIL?.toLowerCase();
           if (owner && user.email.toLowerCase() === owner) {
             return { data: { ...base, role: 'admin' } };
           }

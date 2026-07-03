@@ -1,4 +1,4 @@
-// @polsia:user-owned
+// @app:user-owned
 'use client';
 
 import { Check } from 'lucide-react';

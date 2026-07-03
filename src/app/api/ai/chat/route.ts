@@ -1,6 +1,6 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/ai@0.1.0. Drift = commit rejected.
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/ai@0.1.0. Drift = commit rejected.
 //
-// POST /api/ai/chat — streaming chat relay to the Polsia AI proxy.
+// POST /api/ai/chat — streaming chat relay to the App AI proxy.
 // SECURITY: this relays caller messages to the platform LLM proxy using the
 // server-only platform key. The platform meters per-app token budget, but this
 // route is NOT an authorization boundary — gate it behind an authenticated

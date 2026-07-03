@@ -1,4 +1,4 @@
-// @polsia:user-owned — manuscript submission form island.
+// @app:user-owned — manuscript submission form island.
 // Multi-step: 1) upload file, 2) metadata, 3) rights confirmation, 4) submit.
 'use client';
 

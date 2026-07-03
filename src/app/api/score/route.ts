@@ -1,4 +1,4 @@
-// @polsia:user-owned — manuscript scoring endpoint. POST only. Validates the
+// @app:user-owned — manuscript scoring endpoint. POST only. Validates the
 // request body, runs AI scoring, returns a validated ScoreResponse.
 import 'server-only';
 import { NextResponse } from 'next/server';

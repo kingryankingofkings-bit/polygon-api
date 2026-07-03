@@ -1,5 +1,5 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/email@0.2.0. Drift = commit rejected.
-// Server-only sendEmail helper — POSTs to the Polsia email proxy. Import it from your app's
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/email@0.2.0. Drift = commit rejected.
+// Server-only sendEmail helper — POSTs to the App email proxy. Import it from your app's
 // OWN server route handlers (never expose a generic /api/email route).
 
 import 'server-only';
@@ -17,19 +17,19 @@ export interface SendEmailResult {
 }
 
 export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult> {
-  const url = `${env.POLSIA_EMAIL_PROXY_URL.replace(/\/+$/, '').replace(/\/send$/, '')}/send`;
+  const url = `${env.APP_EMAIL_PROXY_URL.replace(/\/+$/, '').replace(/\/send$/, '')}/send`;
   const body =
     input.text ??
     input.html
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
-  // POLSIA_API_KEY via process.env (platform-injected; not in typed env — ai/stripe declare it).
+  // APP_API_KEY via process.env (platform-injected; not in typed env — ai/stripe declare it).
   const res = await fetch(url, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      authorization: `Bearer ${process.env.POLSIA_API_KEY ?? ''}`,
+      authorization: `Bearer ${process.env.APP_API_KEY ?? ''}`,
     },
     body: JSON.stringify({
       to: input.to,

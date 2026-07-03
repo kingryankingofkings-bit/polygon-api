@@ -1,6 +1,6 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/ai@0.1.0. Drift = commit rejected.
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/ai@0.1.0. Drift = commit rejected.
 //
-// Server-only helpers for Polsia-managed LLM calls. Customer app code talks to
+// Server-only helpers for App-managed LLM calls. Customer app code talks to
 // the platform AI proxy (an OpenAI-compatible endpoint) using the platform-
 // injected company proxy key. NO OpenAI/Anthropic SDK and NO provider secret
 // keys live in the customer repo; the platform proxy meters
@@ -36,15 +36,15 @@ export interface ChatOptions {
   signal?: AbortSignal;
 }
 
-function polsiaAiBaseUrl() {
-  return env.POLSIA_AI_BASE_URL.replace(/\/+$/, '');
+function appAiBaseUrl() {
+  return env.APP_AI_BASE_URL.replace(/\/+$/, '');
 }
 
-function polsiaApiKey() {
-  const key = env.POLSIA_API_KEY ?? env.POLSIA_API_TOKEN;
+function appApiKey() {
+  const key = env.APP_API_KEY ?? env.APP_API_TOKEN;
   if (!key) {
     throw new AiConfigurationError(
-      'POLSIA_API_KEY is missing. Polsia injects it into deployed apps; local dev must set it manually.',
+      'APP_API_KEY is missing. App injects it into deployed apps; local dev must set it manually.',
     );
   }
   return key;
@@ -63,10 +63,10 @@ function chatCompletionsBody(opts: ChatOptions, stream: boolean) {
 }
 
 async function postChatCompletion(opts: ChatOptions, stream: boolean) {
-  return fetch(`${polsiaAiBaseUrl()}/chat/completions`, {
+  return fetch(`${appAiBaseUrl()}/chat/completions`, {
     method: 'POST',
     headers: {
-      authorization: `Bearer ${polsiaApiKey()}`,
+      authorization: `Bearer ${appApiKey()}`,
       'content-type': 'application/json',
     },
     body: chatCompletionsBody(opts, stream),
@@ -84,7 +84,7 @@ export async function chat(opts: ChatOptions): Promise<string> {
       body && typeof body === 'object' && 'error' in body
         ? String((body as { error: unknown }).error)
         : '';
-    throw new Error(`Polsia AI request failed: ${res.status} ${detail}`.trim());
+    throw new Error(`App AI request failed: ${res.status} ${detail}`.trim());
   }
   return body?.choices?.[0]?.message?.content ?? '';
 }
@@ -97,7 +97,7 @@ export async function streamChat(opts: ChatOptions): Promise<Response> {
   const res = await postChatCompletion(opts, true);
   if (!res.ok || !res.body) {
     const detail = await res.text().catch(() => '');
-    throw new Error(`Polsia AI stream failed: ${res.status} ${detail}`.trim());
+    throw new Error(`App AI stream failed: ${res.status} ${detail}`.trim());
   }
   return res;
 }

@@ -1,4 +1,4 @@
-// @polsia:user-owned — Upload manuscript file with encryption + word count extraction.
+// @app:user-owned — Upload manuscript file with encryption + word count extraction.
 import 'server-only';
 import { NextResponse } from 'next/server';
 import { UploadResponseSchema } from '@/lib/contracts/manuscript';

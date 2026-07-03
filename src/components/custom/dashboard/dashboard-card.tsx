@@ -1,4 +1,4 @@
-// @polsia:user-owned
+// @app:user-owned
 
 import type { HTMLAttributes, ReactNode } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';

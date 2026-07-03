@@ -1,6 +1,6 @@
-// @polsia:framework-owned - DO NOT EDIT. Code installed by polsia/modules/stripe-billing@0.1.0. Drift = commit rejected.
+// @app:framework-owned - DO NOT EDIT. Code installed by app/modules/stripe-billing@0.1.0. Drift = commit rejected.
 //
-// Shared schemas for Polsia-managed Stripe billing results. Safe to import from
+// Shared schemas for App-managed Stripe billing results. Safe to import from
 // client components: this file has no server-only imports and does not expose
 // secrets or Stripe SDK code.
 

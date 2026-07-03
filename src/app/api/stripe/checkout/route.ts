@@ -1,4 +1,4 @@
-// @polsia:user-owned — Create Stripe checkout session for publishing fee.
+// @app:user-owned — Create Stripe checkout session for publishing fee.
 // Fee: <=99,999 words = $140; >=100,000 words = $300.
 // Requires manuscriptId + score >= 8.5.
 // Payment link is created via the Stripe MCP in the workflow; this route

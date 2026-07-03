@@ -1,8 +1,8 @@
 {
-  "name": "polsia-app-template",
+  "name": "app-app-template",
   "version": "0.3.5",
   "private": true,
-  "description": "Polsia Next.js template with the shadcn UI baseline built in",
+  "description": "App Next.js template with the shadcn UI baseline built in",
   "engines": {
     "node": ">=20.18.1"
   },

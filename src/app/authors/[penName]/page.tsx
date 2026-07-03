@@ -1,4 +1,4 @@
-// @polsia:user-owned — public author profile page. No auth required.
+// @app:user-owned — public author profile page. No auth required.
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

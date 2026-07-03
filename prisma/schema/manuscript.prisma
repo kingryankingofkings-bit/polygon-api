@@ -1,4 +1,4 @@
-// @polsia:user-owned — Author account + manuscript submission + audit log schema.
+// @app:user-owned — Author account + manuscript submission + audit log schema.
 // Drop alongside _base.prisma — do NOT redeclare datasource or generator.
 
 model Author {

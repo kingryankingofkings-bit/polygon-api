@@ -1,4 +1,4 @@
-// @polsia:user-owned — Author profile read/update. Payout data is NEVER returned.
+// @app:user-owned — Author profile read/update. Payout data is NEVER returned.
 import 'server-only';
 import { NextResponse } from 'next/server';
 import { UpdateAuthorProfileSchema } from '@/lib/contracts/auth';

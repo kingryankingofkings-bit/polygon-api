@@ -1,4 +1,4 @@
-// @polsia:user-owned — brand identity. Edit freely. `site.ts` re-exports
+// @app:user-owned — brand identity. Edit freely. `site.ts` re-exports
 // siteName/siteDescription; `manifest.ts` + `opengraph-image.tsx` read `brandVisual`.
 
 export const siteName = 'AuthorBridge Publishing';

@@ -1,4 +1,4 @@
-// @polsia:user-owned — seeded by polsia/modules/better-auth; restyle freely.
+// @app:user-owned — seeded by app/modules/better-auth; restyle freely.
 'use client';
 
 import { Button } from '@/components/ui/button';

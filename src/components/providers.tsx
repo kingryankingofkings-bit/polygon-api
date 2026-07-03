@@ -1,4 +1,4 @@
-// @polsia:user-owned — the agent OWNS this file (edit freely).
+// @app:user-owned — the agent OWNS this file (edit freely).
 //
 // App-wide client Context providers go here. AppProviders is rendered by the root
 // layout as an ancestor of the nav, page, footer and global mounts, so a Context

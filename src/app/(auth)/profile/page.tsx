@@ -1,4 +1,4 @@
-// @polsia:user-owned — Author profile page with public profile + payout settings.
+// @app:user-owned — Author profile page with public profile + payout settings.
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';

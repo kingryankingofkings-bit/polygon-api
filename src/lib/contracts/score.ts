@@ -1,4 +1,4 @@
-// @polsia:user-owned — Zod contract for the manuscript scoring resource. Shared
+// @app:user-owned — Zod contract for the manuscript scoring resource. Shared
 // between the client (response parsing) and server (validation). No server-only
 // imports — safe to import from anywhere.
 import { z } from 'zod';

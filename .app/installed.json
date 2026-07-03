@@ -1,9 +1,9 @@
 {
-  "$schema": "https://polsia.app/schema/installed.v1.json",
-  "_doc": "Machine-owned trust anchor (per D21). Installed modules + versions + install-hashes + ejected files + slot assignments + day-1 validator floor. Users must NOT edit this file; the framework can no longer trust the state if they do. Hand-editable per-module overrides live in .polsia/overrides.json. Path -> tier mapping lives in .polsia/ownership.json (generated from installed manifests).",
+  "$schema": "https://app.app/schema/installed.v1.json",
+  "_doc": "Machine-owned trust anchor (per D21). Installed modules + versions + install-hashes + ejected files + slot assignments + day-1 validator floor. Users must NOT edit this file; the framework can no longer trust the state if they do. Hand-editable per-module overrides live in .app/overrides.json. Path -> tier mapping lives in .app/ownership.json (generated from installed manifests).",
   "template": {
-    "id": "polsia-next-v2",
-    "name": "polsia/template-next",
+    "id": "app-next-v2",
+    "name": "app/template-next",
     "version": "0.3.0",
     "framework": "next",
     "framework_version": "16.2.6",
@@ -17,7 +17,7 @@
       "target": "next",
       "install_hash": "sha256:6dd45fd7582ef9fb307f0f316f9d43d41ae4e8e0ee78c599a1f0516e3d041795",
       "installed_at": "2026-07-03T02:14:20.600Z",
-      "source": "Polsia-Inc/modules/modules/ai",
+      "source": "App-Inc/modules/modules/ai",
       "ref_sha": "643389668d44af04d1b1c243fe918cc5a2004960",
       "ownership_appends": [
         {
@@ -101,7 +101,7 @@
       "target": "next",
       "install_hash": "sha256:c25017dd870d7b4ebc2655c7c5cd1c58df1fe5ed158107ee0401d10813498fa1",
       "installed_at": "2026-07-03T02:36:17.878Z",
-      "source": "Polsia-Inc/modules/modules/better-auth",
+      "source": "App-Inc/modules/modules/better-auth",
       "ref_sha": "643389668d44af04d1b1c243fe918cc5a2004960",
       "ownership_appends": [
         {
@@ -318,7 +318,7 @@
       "target": "next",
       "install_hash": "sha256:c44df29320abc256e516be7443d001bf88e768c4d73ff75a7021c2fb92104ae6",
       "installed_at": "2026-07-03T02:39:59.951Z",
-      "source": "Polsia-Inc/modules/modules/stripe-billing",
+      "source": "App-Inc/modules/modules/stripe-billing",
       "ref_sha": "643389668d44af04d1b1c243fe918cc5a2004960",
       "ownership_appends": [
         {
@@ -398,7 +398,7 @@
       "target": "next",
       "install_hash": "sha256:1e76d2130dd59e0338d3453c83f324b06028a251bd19dfb0e3ceb4303581aec4",
       "installed_at": "2026-07-03T02:41:05.164Z",
-      "source": "Polsia-Inc/modules/modules/email",
+      "source": "App-Inc/modules/modules/email",
       "ref_sha": "643389668d44af04d1b1c243fe918cc5a2004960",
       "ownership_appends": [
         {
@@ -426,7 +426,7 @@
       "target": "next",
       "install_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "installed_at": "2026-07-03T02:41:46.817Z",
-      "source": "Polsia-Inc/modules/modules/dashboard-shell",
+      "source": "App-Inc/modules/modules/dashboard-shell",
       "ref_sha": "643389668d44af04d1b1c243fe918cc5a2004960",
       "ownership_appends": [
         {
@@ -509,5 +509,5 @@
     "lifecycle-scripts-disabled",
     "next-version-not-affected-by-cve-2025-29927"
   ],
-  "_note_day_1_floor": "Templates are scaffolds with the shadcn/UI baseline shipped IN the template (components.json + cn() + a committed base primitive set + a next-themes ThemeProvider + a token-driven theme), plus the framework-native default DB client (Prisma for template-next). This floor is the scaffold-applicable validator set plus the data checks the baked-in DB client makes runnable on day 1. Other module-specific validators ship in module manifests and are added when those modules install. Validator names must exist in Polsia-Inc/modules/validators/README.md."
+  "_note_day_1_floor": "Templates are scaffolds with the shadcn/UI baseline shipped IN the template (components.json + cn() + a committed base primitive set + a next-themes ThemeProvider + a token-driven theme), plus the framework-native default DB client (Prisma for template-next). This floor is the scaffold-applicable validator set plus the data checks the baked-in DB client makes runnable on day 1. Other module-specific validators ship in module manifests and are added when those modules install. Validator names must exist in App-Inc/modules/validators/README.md."
 }

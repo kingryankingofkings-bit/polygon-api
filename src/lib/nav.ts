@@ -1,4 +1,4 @@
-// @polsia:user-owned — app navigation rendered by SiteNav/SiteFooter and read by
+// @app:user-owned — app navigation rendered by SiteNav/SiteFooter and read by
 // the sitemap. Edit it as pages are added or removed.
 // This list is a convenience, not module registration.
 
@@ -40,7 +40,7 @@ export const navItems: NavItem[] = [
   { label: 'Privacy Policy', href: '/privacy', group: 'footer', order: 21 },
   {
     label: 'Contact',
-    href: 'mailto:authorbridge-publishing@polsia.app',
+    href: 'mailto:authorbridge-publishing@app.app',
     group: 'footer',
     order: 25,
   },

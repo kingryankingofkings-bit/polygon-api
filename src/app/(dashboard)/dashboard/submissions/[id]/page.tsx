@@ -1,4 +1,4 @@
-// @polsia:user-owned — submission detail page with status timeline.
+// @app:user-owned — submission detail page with status timeline.
 'use client';
 
 import { useParams } from 'next/navigation';

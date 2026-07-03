@@ -1,4 +1,4 @@
-// @polsia:user-owned — global navigation rendered from src/lib/nav.ts.
+// @app:user-owned — global navigation rendered from src/lib/nav.ts.
 
 'use client';
 

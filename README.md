@@ -1,24 +1,24 @@
-# polsia-next-v2
+# app-next-v2
 
-The canonical Next.js template for Polsia-generated customer apps.
+The canonical Next.js template for App-generated customer apps.
 
 This repository is a scaffold with the shadcn UI baseline built in. It ships the
 framework defaults every app needs on day one: Next.js 16 App Router, React 19,
 Tailwind 4, Prisma client wiring, Biome, Vitest, security headers, a token-driven
 theme, and a broad shadcn primitive set. Product capabilities such as auth,
 billing, email, analytics, dashboards, and multi-tenant workflows are installed
-from `Polsia-Inc/modules`.
+from `App-Inc/modules`.
 
 ## What This Is
 
-This is a template, not a hand-customized starter app. The Polsia engineering
+This is a template, not a hand-customized starter app. The App engineering
 agent reads the ownership map, installs modules when needed, and edits only the
-bounded app-owned zones. The directory shape and `.polsia/ownership.json` are
+bounded app-owned zones. The directory shape and `.app/ownership.json` are
 the contract that keeps framework files, module files, and customer code
 separate.
 
-The canonical template id is `polsia-next-v2`; the GitHub repository is
-`Polsia-Inc/template-next`.
+The canonical template id is `app-next-v2`; the GitHub repository is
+`App-Inc/template-next`.
 
 ## What Is Included
 
@@ -28,7 +28,7 @@ The canonical template id is `polsia-next-v2`; the GitHub repository is
   `src/app/globals.css`.
 - Prisma 6 client setup: `prisma/schema/_base.prisma`, `prisma.config.ts`, and
   the server-only singleton in `src/lib/db.ts`. The actual database is external;
-  Polsia provisions Postgres and injects `DATABASE_URL`.
+  App provisions Postgres and injects `DATABASE_URL`.
 - Typed environment validation through `src/lib/env.ts`.
 - Data-plane examples: a shared zod contract, an `/api/example` route handler,
   and a client page that uses `apiFetch`.
@@ -50,28 +50,28 @@ The canonical template id is `polsia-next-v2`; the GitHub repository is
 
 ## Ownership Model
 
-Always read `.polsia/installed.json`, `.polsia/ownership.json`, and
-`.polsia/overrides.json` before editing.
+Always read `.app/installed.json`, `.app/ownership.json`, and
+`.app/overrides.json` before editing.
 
 | Tier | Examples | Who edits |
 | --- | --- | --- |
-| `framework_owned` | `src/lib/db.ts`, `src/lib/utils.ts`, `components.json`, `prisma.config.ts`, `AGENTS.md`, `.polsia/installed.json`, `.polsia/ownership.json` | Framework or owning module only. |
-| `user_owned` | `src/components/ui/**`, `src/app/(setup)/page.tsx`, `src/app/(custom)/**`, `src/lib/brand.ts`, `src/lib/nav.ts`, `public/**`, `README.md`, `.polsia/overrides.json` | The app agent or customer. |
+| `framework_owned` | `src/lib/db.ts`, `src/lib/utils.ts`, `components.json`, `prisma.config.ts`, `AGENTS.md`, `.app/installed.json`, `.app/ownership.json` | Framework or owning module only. |
+| `user_owned` | `src/components/ui/**`, `src/app/(setup)/page.tsx`, `src/app/(custom)/**`, `src/lib/brand.ts`, `src/lib/nav.ts`, `public/**`, `README.md`, `.app/overrides.json` | The app agent or customer. |
 | `shared` | `src/app/globals.css`, `src/lib/env.ts`, `src/app/layout.tsx`, `proxy.ts`, `next.config.ts`, `package.json`, `.env.example` | Edit only through declared slots or the documented merge strategy. |
 
-`.polsia/ownership.json` is the source of truth. Source banners are reader
+`.app/ownership.json` is the source of truth. Source banners are reader
 signage only.
 
 ## What Not To Edit
 
-- Anything marked `framework_owned` in `.polsia/ownership.json`.
-  Comment-capable source files carry `@polsia:framework-owned` banners as
+- Anything marked `framework_owned` in `.app/ownership.json`.
+  Comment-capable source files carry `@app:framework-owned` banners as
   signage, but the ownership map is the authority.
 - Anything outside declared slot markers in shared files such as
   `next.config.ts`, `proxy.ts`, `src/lib/env.ts`, `src/app/layout.tsx`, and
   `src/app/globals.css`.
-- `.polsia/installed.json` and `.polsia/ownership.json`. They are generated
-  state files. Use `.polsia/overrides.json` for hand-editable module policy.
+- `.app/installed.json` and `.app/ownership.json`. They are generated
+  state files. Use `.app/overrides.json` for hand-editable module policy.
 
 ## Platform Rules
 
@@ -85,15 +85,15 @@ signage only.
   restyle them freely. Don't hand-roll the auth security surface (`src/lib/auth.ts`,
   `src/app/api/auth/**`, the prisma auth schema, `require-auth`/`require-admin`):
   those are framework-owned, installed by the auth module.
-- Put recurring work in `polsia.toml` `[[crons]]`; do not use in-process
+- Put recurring work in `app.toml` `[[crons]]`; do not use in-process
   schedulers for product behavior.
 
 ## Agent Workflow
 
-1. Read `AGENTS.md` and the three `.polsia/` state files.
+1. Read `AGENTS.md` and the three `.app/` state files.
 2. Decide whether the request is app-specific UI/business logic or a reusable
    capability that should come from a module.
-3. Install modules through the Polsia module installer when a module owns the
+3. Install modules through the App module installer when a module owns the
    capability. Do not clone module files by hand.
 4. Write app-specific code in user-owned areas:
    - Routes: `src/app/(custom)/<feature>/page.tsx`
@@ -112,7 +112,7 @@ signage only.
    features, the dashboard.
 8. Run the relevant checks before shipping.
 
-Module installs go through the Polsia module installer. The installer owns
+Module installs go through the App module installer. The installer owns
 module file writes, ownership-map updates, install hashes, and module validators.
 Do not clone module files or copy them by hand.
 
@@ -150,7 +150,7 @@ Reusable app-specific UI belongs in `src/components/custom/**`.
 
 ```text
 .
-├── .polsia/                          Generated state and ownership map
+├── .app/                          Generated state and ownership map
 ├── prisma/
 │   ├── schema/_base.prisma           Datasource + generator only
 │   └── migrations/migration_lock.toml Project-level migration lock
@@ -182,7 +182,7 @@ Reusable app-specific UI belongs in `src/components/custom/**`.
 ├── tests/unit/                       Vitest unit tests
 ├── next.config.ts                    Next config and security headers
 ├── proxy.ts                          CSP nonce and middleware chain slot
-├── polsia.toml                       Deploy manifest and scheduled jobs
+├── app.toml                       Deploy manifest and scheduled jobs
 └── AGENTS.md                         Engineering agent operating manual
 ```
 
@@ -205,7 +205,7 @@ shadcn runtime positioning works in production.
 ## Day-1 Validators
 
 The bare scaffold validator floor is declared in
-`.polsia/installed.json#day_1_floor`. Module-specific validators are added by
+`.app/installed.json#day_1_floor`. Module-specific validators are added by
 module manifests when modules install.
 
 - `no-secrets-in-client-bundle`

@@ -1,4 +1,4 @@
-// @polsia:user-owned — Royalty + payout models. Drop alongside _base.prisma.
+// @app:user-owned — Royalty + payout models. Drop alongside _base.prisma.
 
 model BookSale {
   id              String    @id @default(cuid())

@@ -1,4 +1,4 @@
-// @polsia:user-owned — Single manuscript operations (GET, PATCH, DELETE).
+// @app:user-owned — Single manuscript operations (GET, PATCH, DELETE).
 import 'server-only';
 import { NextResponse } from 'next/server';
 import { ManuscriptPublicSchema, ManuscriptUpdateSchema } from '@/lib/contracts/manuscript';

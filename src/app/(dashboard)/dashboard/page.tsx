@@ -1,4 +1,4 @@
-// @polsia:user-owned
+// @app:user-owned
 'use client';
 
 import { Activity, CreditCard, ShieldCheck, Users } from 'lucide-react';

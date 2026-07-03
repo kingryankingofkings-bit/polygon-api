@@ -1,4 +1,4 @@
-// @polsia:user-owned — post-submission success page. Verifies payment and shows confirmation.
+// @app:user-owned — post-submission success page. Verifies payment and shows confirmation.
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';

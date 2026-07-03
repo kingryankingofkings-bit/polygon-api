@@ -1,4 +1,4 @@
-// @polsia:user-owned — manuscript submissions list.
+// @app:user-owned — manuscript submissions list.
 'use client';
 
 import Link from 'next/link';
