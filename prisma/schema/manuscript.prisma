@@ -1,0 +1,106 @@
+// @polsia:user-owned — Author account + manuscript submission + audit log schema.
+// Drop alongside _base.prisma — do NOT redeclare datasource or generator.
+
+model Author {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+
+  // Public profile (exposed in API responses)
+  penName       String?
+  bio           String?
+  genrePrefs    String[]
+
+  // Private legal/payout (encrypted at rest, NEVER returned in API responses)
+  legalName     String?
+  payoutPayPal  String?
+  payoutStripe  String?
+
+  // Rights confirmation (timestamped)
+  rightsConfirmedAt DateTime?
+
+  manuscripts   Manuscript[]
+  auditLogs     AuditLog[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Manuscript {
+  id            String   @id @default(cuid())
+  authorId      String
+  author        Author   @relation(fields: [authorId], references: [id])
+
+  // File storage
+  filePath      String
+  fileName      String
+  fileSize      Int
+  mimeType      String
+  coverImagePath String?
+
+  // Public metadata
+  title         String
+  subtitle      String?
+  genre         String
+  subgenre      String?
+  blurb         String?
+  keywords      String[]
+  ageCategory   String?
+  contentWarnings String[]
+
+  // Word count (auto-detected on upload)
+  wordCount     Int
+
+  // AI scoring result
+  score         Float?
+  scoreDimensions Json?
+  overallFeedback String?
+  scoredAt      DateTime?
+
+  // Status tracking
+  status        ManuscriptStatus @default(SUBMITTED)
+
+  // Rights confirmation
+  rightsConfirmedAt DateTime
+  rightsConfirmedIp  String?
+
+  // Publishing fee payment
+  paymentId     String?
+  paymentAmount Int?
+
+  publishedAt   DateTime?
+  publishedUrl  String?
+
+  auditLogs     AuditLog[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum ManuscriptStatus {
+  SUBMITTED
+  SCORING
+  REVIEW
+  APPROVED
+  REJECTED
+  AWAITING_PAYMENT
+  PAYMENT_FAILED
+  PUBLISHING
+  PUBLISHED
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  authorId    String
+  author      Author   @relation(fields: [authorId], references: [id])
+  manuscriptId String?
+
+  action      String
+  resource    String
+  resourceId  String?
+  metadata    Json?
+  ipAddress   String?
+
+  manuscript   Manuscript? @relation(fields: [manuscriptId], references: [id])
+
+  createdAt   DateTime @default(now())
+}

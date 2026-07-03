@@ -1,0 +1,108 @@
+// @polsia:user-owned — Royalty + payout models. Drop alongside _base.prisma.
+
+model BookSale {
+  id              String    @id @default(cuid())
+  bookId          String    // manuscript.id of the published book
+  authorId        String    // Author.id — no back-relation (Author lives in _base.prisma)
+
+  grossAmount     Int       // cents
+  processorFee   Int       // cents (payment processor cut)
+  platformFee    Int       // cents (our platform fee)
+  refundAmount   Int       @default(0)
+  chargebackAmount Int      @default(0)
+  netAmount      Int       // grossAmount - processorFee - platformFee - refundAmount - chargebackAmount
+  royaltyAmount  Int       // 75% of netAmount (cents); derived field, stored for auditability
+
+  transactionDate DateTime
+  transactionId   String   @unique // processor's transaction ID
+  type            SaleType @default(SALE)
+
+  createdAt       DateTime @default(now())
+
+  @@index([authorId, transactionDate])
+  @@index([bookId])
+}
+
+enum SaleType {
+  SALE
+  REFUND
+  CHARGEBACK
+}
+
+model RoyaltyStatement {
+  id              String           @id @default(cuid())
+  authorId        String           // Author.id — no back-relation
+  periodYear      Int
+  periodMonth     Int              // 1–12
+
+  totalGrossSales  Int            @default(0)
+  totalProcessorFees Int          @default(0)
+  totalPlatformFees  Int          @default(0)
+  totalRefunds      Int          @default(0)
+  totalChargebacks  Int          @default(0)
+  totalNetRevenue   Int          @default(0) // sum of netAmount across BookSales
+  totalRoyalty       Int          @default(0) // sum of royaltyAmount across BookSales
+
+  status          StatementStatus @default(PENDING)
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@unique([authorId, periodYear, periodMonth])
+  @@index([periodYear, periodMonth])
+}
+
+enum StatementStatus {
+  PENDING      // month still open
+  CALCULATED   // month closed, statement generated
+  APPROVED     // admin approved for payout
+  PAID         // full payout sent
+  HELD         // admin held this statement
+}
+
+model PayoutRecord {
+  id              String        @id @default(cuid())
+  authorId        String        // Author.id — no back-relation
+  statementId     String        // RoyaltyStatement.id — no back-relation
+
+  amount          Int           // cents
+  method          PayoutMethod
+  transactionId   String?      // PayPal payout ID or Stripe transfer ID
+  status          PayoutStatus @default(PENDING)
+
+  // Stored credential hints — NEVER returned in API responses
+  payoutEmailHint String?      // masked: "pa***@example.com"
+  payoutAccountHint String?    // masked: "acct_••••1234"
+
+  processedAt     DateTime?
+  createdAt       DateTime     @default(now())
+
+  @@index([authorId])
+  @@index([status])
+}
+
+enum PayoutMethod {
+  PAYPAL
+  STRIPE
+}
+
+enum PayoutStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+  FLAGGED
+}
+
+model PayoutAuditLog {
+  id          String   @id @default(cuid())
+  adminId     String   // User.id who performed the action
+  action      String   // e.g. "HOLD", "APPROVE", "PROCESS", "EXPORT"
+  payoutId    String?
+  metadata    Json?    // { before: {...}, after: {...} }
+
+  createdAt   DateTime @default(now())
+
+  @@index([adminId])
+  @@index([payoutId])
+}
