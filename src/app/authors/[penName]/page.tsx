@@ -1,6 +1,7 @@
-// @app:user-owned — public author profile page. No auth required.
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { prisma } from '@/lib/db';
+import Link from 'next/link';
 
 interface Props {
   params: Promise<{ penName: string }>;
@@ -17,11 +18,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AuthorProfilePage({ params }: Props) {
   const { penName } = await params;
 
-  // In production, fetch author by penName from DB
-  // For now, show placeholder content
-  const authorExists = false; // Replace with actual DB check
+  const author = await prisma.author.findFirst({
+    where: {
+      penName: { equals: decodeURIComponent(penName), mode: 'insensitive' },
+    },
+    include: {
+      manuscripts: {
+        where: { status: 'PUBLISHED' },
+        orderBy: { publishedAt: 'desc' },
+      },
+    },
+  });
 
-  if (!authorExists) {
+  if (!author) {
     notFound();
   }
 
@@ -36,10 +45,10 @@ export default async function AuthorProfilePage({ params }: Props) {
         {/* Author Header */}
         <div className="flex items-center gap-4 mb-8">
           <div className="w-20 h-20 rounded-full bg-[var(--brand-200)] flex items-center justify-center text-h2 font-bold text-brand-700 select-none">
-            {penName.charAt(0).toUpperCase()}
+            {author.penName?.charAt(0).toUpperCase() || '?'}
           </div>
           <div>
-            <h1 className="text-h2 font-bold text-foreground">{penName}</h1>
+            <h1 className="text-h2 font-bold text-foreground">{author.penName || 'Anonymous'}</h1>
             <p className="text-muted-foreground text-body">Author on AuthorBridge</p>
           </div>
         </div>
@@ -48,14 +57,35 @@ export default async function AuthorProfilePage({ params }: Props) {
         <section className="mb-8">
           <h2 className="text-h4 font-semibold text-foreground mb-3">About</h2>
           <p className="text-body leading-relaxed text-muted-foreground">
-            Author biography will appear here.
+            {author.bio || 'This author has not provided a biography yet.'}
           </p>
         </section>
 
         {/* Published Works */}
         <section>
           <h2 className="text-h4 font-semibold text-foreground mb-3">Published Works</h2>
-          <p className="text-muted-foreground">No published works yet.</p>
+          {author.manuscripts.length > 0 ? (
+            <ul className="space-y-4">
+              {author.manuscripts.map((ms) => (
+                <li key={ms.id} className="p-4 border rounded-md bg-card">
+                  <h3 className="text-lg font-medium text-foreground">{ms.title}</h3>
+                  {ms.genre && <span className="text-xs text-brand-600 font-semibold">{ms.genre}</span>}
+                  <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                    {ms.blurb || 'No description provided.'}
+                  </p>
+                  {ms.publishedUrl && (
+                    <div className="mt-3">
+                      <Link href={ms.publishedUrl} target="_blank" className="text-sm text-brand-600 hover:underline">
+                        View/Buy Book
+                      </Link>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-muted-foreground">No published works yet.</p>
+          )}
         </section>
       </div>
     </main>

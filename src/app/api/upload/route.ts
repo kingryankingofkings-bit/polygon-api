@@ -18,16 +18,31 @@ function encryptBuffer(buffer: Buffer, key: string): Buffer {
   return Buffer.concat([iv, authTag, encrypted]);
 }
 
-async function extractWordCount(filePath: string, mimeType: string): Promise<number> {
-  // Placeholder: in production, use pdfjs-dist for PDFs and mammoth for DOCX
-  // For now, estimate 250 words per page for PDFs
-  if (mimeType === 'application/pdf') {
-    const fs = require('node:fs');
-    const stats = fs.statSync(filePath);
-    const estimatedPages = Math.ceil(stats.size / 1500);
-    return estimatedPages * 250;
+async function extractWordCount(buffer: Buffer, mimeType: string): Promise<number> {
+  let text = '';
+  try {
+    if (mimeType === 'application/pdf') {
+      const pdfParse = require('pdf-parse');
+      const data = await pdfParse(buffer);
+      text = data.text;
+    } else if (
+      mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+      mimeType === 'application/msword'
+    ) {
+      const mammoth = require('mammoth');
+      const result = await mammoth.extractRawText({ buffer });
+      text = result.value;
+    } else {
+      // Fallback for plain text or unknown
+      text = buffer.toString('utf8');
+    }
+  } catch (err) {
+    console.error('Text extraction failed:', err);
+    return 0;
   }
-  return 0;
+
+  const words = text.trim().split(/\s+/);
+  return words.length === 1 && words[0] === '' ? 0 : words.length;
 }
 
 export async function POST(req: Request) {
@@ -80,7 +95,7 @@ export async function POST(req: Request) {
       fs.writeFileSync(coverImagePath, encryptedCover);
     }
 
-    const wordCount = await extractWordCount(filePath, file.type);
+    const wordCount = await extractWordCount(fileBuffer, file.type);
 
     const result = {
       filePath,
