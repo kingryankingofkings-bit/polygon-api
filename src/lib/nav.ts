@@ -29,6 +29,7 @@ export const navItems: NavItem[] = [
   { label: 'Pricing', href: '/#pricing', group: 'primary', order: 2 },
   { label: 'Authors', href: '/authors', group: 'primary', order: 3 },
   { label: 'Dashboard', href: '/dashboard', group: 'primary', requiresAuth: true, order: 4 },
+  { label: 'Admin', href: '/dashboard/admin', group: 'primary', requiresAuth: true, order: 5 },
   { label: 'Sign In', href: '/login', group: 'secondary', order: 10 },
   { label: 'Get Started', href: '/signup', group: 'secondary', order: 11 },
   { label: 'How It Works', href: '/#how-it-works', group: 'footer', order: 10 },
