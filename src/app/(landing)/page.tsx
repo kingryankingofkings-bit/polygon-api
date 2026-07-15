@@ -1,5 +1,5 @@
 // @app:user-owned
-import { AiReviewSection } from './components/ai-review-section';
+import { AIReviewSection } from './components/ai-review-section';
 import { BenefitsSection } from './components/benefits-section';
 import { GenreSection } from './components/genre-section';
 import { HeroSection } from './components/hero-section';
@@ -12,7 +12,7 @@ export default function LandingPage() {
     <main className="flex flex-col">
       <HeroSection />
       <HowItWorksSection />
-      <AiReviewSection />
+      <AIReviewSection />
       <BenefitsSection />
       <GenreSection />
       <TrustSection />
