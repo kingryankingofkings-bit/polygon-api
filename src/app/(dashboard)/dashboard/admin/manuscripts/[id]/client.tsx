@@ -33,7 +33,7 @@ export function ManuscriptDetailClient({ id, status, hasCover, publishedUrl }: P
       const cd = res.headers.get('Content-Disposition');
       let filename = 'download';
       if (cd && cd.includes('filename="')) {
-        filename = cd.split('filename="')[1].split('"')[0];
+        filename = cd.split('filename="')[1]?.split('"')[0] || 'download';
       }
       a.download = filename;
       document.body.appendChild(a);
