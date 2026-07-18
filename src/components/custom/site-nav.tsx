@@ -33,13 +33,17 @@ import { cn } from '@/lib/utils';
 //     const { data } = useSession();
 //     return Boolean(data?.session);
 //   }
+import { useSession } from '@/lib/auth-client';
+
 function useIsAuthenticated(): boolean {
-  return false;
+  const { data } = useSession();
+  return Boolean(data?.session);
 }
 
 function visibleItems(group: NavGroup, isAuthenticated: boolean): NavItem[] {
   return navItems
-    .filter((item) => item.group === group && (!item.requiresAuth || isAuthenticated))
+    .filter((item) => item.group === group)
+    .filter((item) => (isAuthenticated ? !item.hideWhenAuth : !item.requiresAuth))
     .sort(
       (a, b) =>
         (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER) ||

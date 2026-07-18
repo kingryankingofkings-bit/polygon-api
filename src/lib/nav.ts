@@ -17,6 +17,8 @@ export interface NavItem {
   menu?: string;
   /** When true, render only if a session exists (see site-nav.tsx). */
   requiresAuth?: boolean;
+  /** When true, hide this item when a session exists (e.g. Sign In). */
+  hideWhenAuth?: boolean;
   /** Sort key within a group (ascending); unordered items fall to the end. */
   order?: number;
 }
@@ -30,8 +32,8 @@ export const navItems: NavItem[] = [
   { label: 'Authors', href: '/authors', group: 'primary', order: 3 },
   { label: 'Dashboard', href: '/dashboard', group: 'primary', requiresAuth: true, order: 4 },
   { label: 'Admin', href: '/dashboard/admin', group: 'primary', requiresAuth: true, order: 5 },
-  { label: 'Sign In', href: '/login', group: 'secondary', order: 10 },
-  { label: 'Get Started', href: '/signup', group: 'secondary', order: 11 },
+  { label: 'Sign In', href: '/login', group: 'secondary', hideWhenAuth: true, order: 10 },
+  { label: 'Get Started', href: '/signup', group: 'secondary', hideWhenAuth: true, order: 11 },
   { label: 'How It Works', href: '/#how-it-works', group: 'footer', order: 10 },
   { label: 'Pricing', href: '/#pricing', group: 'footer', order: 11 },
   { label: 'Genre Guide', href: '/#genres', group: 'footer', order: 12 },
