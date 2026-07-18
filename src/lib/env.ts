@@ -44,6 +44,10 @@ export const env = createEnv({
     // @app:contrib email start
     APP_EMAIL_PROXY_URL: z.string().url(),
     // @app:contrib email end
+    // @app:contrib draft2digital start
+    DRAFT2DIGITAL_USERNAME: z.string().optional(),
+    DRAFT2DIGITAL_PASSWORD: z.string().optional(),
+    // @app:contrib draft2digital end
     // @app:slot env_vars_server end
   },
 
@@ -86,6 +90,10 @@ export const env = createEnv({
     // @app:contrib email start
     APP_EMAIL_PROXY_URL: process.env.APP_EMAIL_PROXY_URL,
     // @app:contrib email end
+    // @app:contrib draft2digital start
+    DRAFT2DIGITAL_USERNAME: process.env.DRAFT2DIGITAL_USERNAME,
+    DRAFT2DIGITAL_PASSWORD: process.env.DRAFT2DIGITAL_PASSWORD,
+    // @app:contrib draft2digital end
     // @app:slot env_runtime end
   },
   emptyStringAsUndefined: true,
