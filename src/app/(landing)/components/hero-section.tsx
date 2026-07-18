@@ -10,7 +10,7 @@ export function HeroSection() {
 
       <div className="container-page relative">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-eyebrow mb-6 text-yellow-500/80">AuthorBridge Publishing</p>
+          <p className="text-eyebrow mb-6 text-yellow-500/80">Babylon The Path Publishing</p>
 
           <h1 className="font-display text-display font-bold tracking-tight text-slate-50">
             Your Manuscript.

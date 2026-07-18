@@ -41,7 +41,7 @@ export const navItems: NavItem[] = [
   { label: 'Privacy Policy', href: '/privacy', group: 'footer', order: 21 },
   {
     label: 'Contact',
-    href: 'mailto:authorbridge-publishing@app.app',
+    href: 'mailto:babylonthepath-publishing@app.app',
     group: 'footer',
     order: 25,
   },

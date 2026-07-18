@@ -3,8 +3,8 @@ import { prisma } from '@/lib/db';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Authors — AuthorBridge Publishing',
-  description: 'Discover the talented authors published by AuthorBridge.',
+  title: 'Authors — Babylon The Path Publishing',
+  description: 'Discover the talented authors published by BabylonThePath.',
 };
 
 export default async function AuthorsDirectoryPage() {

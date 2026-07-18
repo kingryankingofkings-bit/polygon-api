@@ -10,8 +10,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { penName } = await params;
   return {
-    title: `${penName} — AuthorBridge Publishing`,
-    description: `View ${penName}'s author profile and published works on AuthorBridge.`,
+    title: `${penName} — Babylon The Path Publishing`,
+    description: `View ${penName}'s author profile and published works on BabylonThePath.`,
   };
 }
 
@@ -49,7 +49,7 @@ export default async function AuthorProfilePage({ params }: Props) {
           </div>
           <div>
             <h1 className="text-h2 font-bold text-foreground">{author.penName || 'Anonymous'}</h1>
-            <p className="text-muted-foreground text-body">Author on AuthorBridge</p>
+            <p className="text-muted-foreground text-body">Author on BabylonThePath</p>
           </div>
         </div>
 

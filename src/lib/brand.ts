@@ -1,7 +1,7 @@
 // @app:user-owned — brand identity. Edit freely. `site.ts` re-exports
 // siteName/siteDescription; `manifest.ts` + `opengraph-image.tsx` read `brandVisual`.
 
-export const siteName = 'AuthorBridge Publishing';
+export const siteName = 'Babylon The Path Publishing';
 export const siteDescription =
   'AI-powered publishing services for independent authors. Manuscript analysis, ISBN registration, formatting, and bookstore distribution.';
 
