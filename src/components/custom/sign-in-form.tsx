@@ -21,13 +21,18 @@ export function SignInForm() {
     e.preventDefault();
     setPending(true);
     setError(undefined);
-    const { error: signInError } = await signIn.email({ email, password });
-    setPending(false);
-    if (signInError) {
-      setError(signInError.message ?? 'Could not sign in. Check your details.');
-      return;
+    try {
+      const { error: signInError } = await signIn.email({ email, password });
+      setPending(false);
+      if (signInError) {
+        setError(signInError.message ?? 'Invalid credentials. Try again.');
+        return;
+      }
+      window.location.assign('/');
+    } catch (err) {
+      setPending(false);
+      setError('Network error. Please check your connection and try again.');
     }
-    window.location.assign('/');
   }
 
   return (

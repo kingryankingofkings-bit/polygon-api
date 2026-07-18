@@ -23,13 +23,18 @@ export function SignUpForm() {
     e.preventDefault();
     setPending(true);
     setError(undefined);
-    const { error: signUpError } = await signUp.email({ name, email, password });
-    setPending(false);
-    if (signUpError) {
-      setError(signUpError.message ?? 'Could not create your account. Try again.');
-      return;
+    try {
+      const { error: signUpError } = await signUp.email({ name, email, password });
+      setPending(false);
+      if (signUpError) {
+        setError(signUpError.message ?? 'Could not create your account. Try again.');
+        return;
+      }
+      window.location.assign('/');
+    } catch (err) {
+      setPending(false);
+      setError('Network error. Please check your connection and try again.');
     }
-    window.location.assign('/');
   }
 
   return (
